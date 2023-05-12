@@ -1,0 +1,223 @@
+<div class="main">
+  <div class="main_head">
+    <h2>GYIZER</h2>
+    <h6>TODOAPP</h6>
+  </div>
+  <div class="main_inner">
+    <div class="form_control">
+      <div class="form_cover">
+        <div class="form_cover_res ">
+          <div class="input_cover">
+            <div style="margin-bottom: 5px">
+              <input type="text" placeholder="title..." [value]="edittitle" #newTodo />
+            </div>
+
+            <div>
+              <textarea type="text" placeholder="input..." [value]="editpro" #newTodoPriority></textarea> />
+            </div>
+          </div>
+          <div class="add_todo_inner">
+            <button
+              *ngIf="!isupdateactive"
+              (click)="
+                addTodo(newTodo.value, newTodoPriority.value);
+                newTodo.value = '';
+                newTodoPriority.value = ''
+              "
+            >
+              <img src="../assets/plus.png" alt="" />
+            </button>
+          </div>
+          <div *ngIf="isupdateactive" class="add_todo_inner update">
+            <button
+              (click)="
+                updateaddTodo(newTodo.value, newTodoPriority.value);
+                newTodo.value = '';
+                newTodoPriority.value = ''; 
+              "
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="todos.length == 0" class="listshow">
+      <div class="list_inner">
+        <h2 class="notfound">No tasks</h2>
+      </div>
+    </div>
+
+    <div *ngIf="todos.length == 0" class="listshow listshow_responsive">
+      <div class="list_inner">
+        <h2 class="notfound">No tasks</h2>
+      </div>
+    </div>
+    <div *ngIf="todos.length > 0" class="addlist">
+      <div class="addlist_inner">
+        <div
+          *ngFor="let item of todos; let i = index"
+          class="addlist_inner_child"
+        >
+          <div class="addlist_inner_content">
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.priority }}</p>
+          </div>
+          <div
+            [id]="'text' + i"
+            [ngStyle]="{ display: item.isSelected ? 'flex' : 'none' }"
+          >
+            <img
+              data-toggle="modal"
+              data-target="#logout"
+              style="
+                background: #1b1a17;
+
+                border-radius: 5px;
+                height: 32px;
+                width: 32px;
+                cursor: pointer;
+              "
+              src="./assets/deletedark.png"
+              alt=""
+            />
+            <img
+              (click)="edit(i)"
+              style="
+                background: #1b1a17;
+
+                border-radius: 6px;
+                height: 32px;
+                width: 32px;
+                cursor: pointer;
+                margin: 0 5px;
+              "
+              src="./assets/editdark.png"
+              alt=""
+            />
+          </div>
+          <img
+            (click)="item.isSelected = !item.isSelected"
+            style="
+              background: #242320;
+              cursor: pointer;
+              border-radius: 6px;
+              height: 32px;
+              width: 32px;
+            "
+            src="../assets/Property 1=Default (2).png"
+            alt=""
+          />
+          <!-- modal for delete product start  -->
+          <div class="modal_delete_user all_modal sign_in_pg">
+            <div class="modal fade" id="logout" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content my_delete_popup">
+                  <div class="modal-body">
+                    <h4>Delete this task?</h4>
+                    s
+                  </div>
+                  <div class="modal-footer">
+                    <div class="black_btn">
+                      <button data-dismiss="modal" (click)="delete(i)">
+                        Yes
+                      </button>
+                    </div>
+                    <div class="green_btn">
+                      <button data-dismiss="modal">No</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- modal for delete product end  -->
+        </div>
+      </div>
+    </div>
+    <div *ngIf="todos.length > 0" class="addlist addlist_responsive">
+      <div class="addlist_inner addlist_inner_responsive">
+        <div
+          *ngFor="let item of todos; let i = index"
+          class="addlist_inner_child addlist_inner_child_responsive"
+        >
+          <div class="addlist_inner_content">
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.priority }}</p>
+          </div>
+          <div
+            [id]="'text' + i"
+           
+            [ngStyle]="{ display: item.isSelected ? 'flex' : 'none' }"
+          >
+            <img
+              data-toggle="modal"
+              data-target="#logout1"
+              style="
+                background: #1b1a17;
+
+                border-radius: 5px;
+                height: 32px;
+                width: 32px;
+                cursor: pointer;
+              "
+              src="./assets/deletedark.png"
+              alt=""
+            />
+            <img
+            (click)="edit(i)"
+              style="
+                background: #1b1a17;
+
+                border-radius: 6px;
+                height: 32px;
+                width: 32px;
+                cursor: pointer;
+                margin: 0 5px;
+              "
+              src="./assets/editdark.png"
+              alt=""
+            />
+          </div>
+          <img
+            (click)="item.isSelected = !item.isSelected"
+            style="
+              background: #242320;
+              cursor: pointer;
+              border-radius: 6px;
+              height: 32px;
+              width: 32px;
+            "
+            src="../assets/Property 1=Default (2).png"
+            alt=""
+          />
+          <!-- modal for delete product start  -->
+          <div class="modal_delete_user all_modal sign_in_pg">
+            <div class="modal fade" id="logout1" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content my_delete_popup">
+                  <div class="modal-body">
+                    <h4>Delete this task?</h4>
+                    s
+                  </div>
+                  <div class="modal-footer">
+                    <div class="black_btn">
+                      <button data-dismiss="modal" (click)="delete(i)">
+                        Yes
+                      </button>
+                    </div>
+                    <div class="green_btn">
+                      <button data-dismiss="modal">No</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- modal for delete product end  -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
